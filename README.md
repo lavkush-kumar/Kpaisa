@@ -6,6 +6,7 @@ React + Vite. Mock data only. Supports 3–2 and 2–3–2 layouts, per-passenge
 ```bash
 npm install
 npm run dev        # local
+npm test           # reducer unit tests
 npm run build      # production build in /dist
 ```
 Deploy: push to GitHub and import into Vercel (zero config), or publish `dist/` to GitHub Pages.
@@ -34,3 +35,12 @@ src/
   components/          Seat, SeatMap, PassengerPanel, Summary
   App.jsx              data loading, toasts, composition
 ```
+
+## Live demo
+<!-- Paste your Vercel / GitHub Pages link here -->
+
+## Decisions worth knowing
+- Reducer is pure and unit-tested (`npm test`), so assignment rules are verified independently of the UI.
+- Totals are derived, never stored.
+- Accessibility: seats are real buttons with descriptive `aria-label`s, visible focus rings, `aria-live` price info, reduced-motion support.
+- Possible next steps: persist state in `localStorage`, seat-map zoom on mobile, real API integration.
