@@ -17,11 +17,12 @@ export default function PassengerPanel({ state, dispatch, passengers, seatLookup
           const active = p.id === state.activeId;
           return (
             <li key={p.id} className={active ? "p p--active" : "p"}>
-              <button className="pselect" aria-pressed={active} onClick={() => dispatch({ type: "SET_ACTIVE", id: p.id })}>
-                <span className="avatar">P{p.id}</span>
-                <span className="pname">{p.name}</span>
+              <div className="prow">
+                <button className="avatar" aria-pressed={active} aria-label={`Select ${p.name}`} onClick={() => dispatch({ type: "SET_ACTIVE", id: p.id })}>P{p.id}</button>
+                <input className="pname" aria-label={`Name of passenger ${p.id}`} maxLength={24} value={state.names[p.id] ?? ""} placeholder={`Passenger ${p.id}`}
+                  onFocus={() => dispatch({ type: "SET_ACTIVE", id: p.id })} onChange={(e) => dispatch({ type: "SET_NAME", id: p.id, name: e.target.value })} />
                 <span className="pseat">{seat ? `${seat.id} · ${formatPrice(seat.price)}` : "No seat yet"}</span>
-              </button>
+              </div>
               <div className="pextras">
                 <label>
                   Meal
@@ -35,6 +36,7 @@ export default function PassengerPanel({ state, dispatch, passengers, seatLookup
           );
         })}
       </ul>
+      <button className="link reset" onClick={() => dispatch({ type: "RESET" })}>Reset all selections</button>
     </section>
   );
 }
